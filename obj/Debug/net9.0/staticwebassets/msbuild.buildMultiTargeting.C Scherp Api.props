@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\C Scherp Api.props" />
+</Project>
