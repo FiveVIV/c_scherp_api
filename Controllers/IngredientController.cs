@@ -1,4 +1,5 @@
 ﻿using C_Scherp_Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,15 +16,34 @@ namespace C_Scherp_Api.Controllers
             _context = context;
         }
 
+
+        /// <summary>
+        /// 🚀 Secure endpoint - Requires authentication.
+        /// </summary>
+        /// <response code="401">Unauthorized - You must provide a valid token.</response>
         // GET: api/Ingredient
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Ingredient>>> GetIngredients()
         {
-            return await _context.Ingredients.ToListAsync();
+            var ingredients = await _context.Ingredients.ToListAsync();
+
+            if (!ingredients.Any())
+            {
+                return NotFound("No ingredients found.");
+            }
+
+            return Ok(ingredients);
         }
 
+
+        /// <summary>
+        /// 🚀 Secure endpoint - Requires authentication.
+        /// </summary>
+        /// <response code="401">Unauthorized - You must provide a valid token.</response>
         // GET: api/Ingredients/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Ingredient>> GetIngredient(int id)
         {
             var ingredient = await _context.Ingredients.FindAsync(id);
@@ -36,10 +56,15 @@ namespace C_Scherp_Api.Controllers
             return ingredient;
         }
 
+        /// <summary>
+        /// 🚀 Secure endpoint - Requires authentication.
+        /// </summary>
+        /// <response code="401">Unauthorized - You must provide a valid token.</response>
         // PUT: api/Ingredients/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVideoGame(int id, Ingredient ingredient)
+        [Authorize]
+
+        public async Task<IActionResult> PutIngredient(int id, Ingredient ingredient)
         {
             if (id != ingredient.Id)
             {
@@ -67,9 +92,13 @@ namespace C_Scherp_Api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// 🚀 Secure endpoint - Requires authentication.
+        /// </summary>
+        /// <response code="401">Unauthorized - You must provide a valid token.</response>
         // POST: api/Ingredients
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Ingredient>> PostIngredient(Ingredient ingredient)
         {
             _context.Ingredients.Add(ingredient);
@@ -78,8 +107,13 @@ namespace C_Scherp_Api.Controllers
             return CreatedAtAction("GetIngredient", new { id = ingredient.Id }, ingredient);
         }
 
+        /// <summary>
+        /// 🚀 Secure endpoint - Requires authentication.
+        /// </summary>
+        /// <response code="401">Unauthorized - You must provide a valid token.</response>
         // DELETE: api/Ingredients/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteIngredient(int id)
         {
             var ingredient = await _context.Ingredients.FindAsync(id);

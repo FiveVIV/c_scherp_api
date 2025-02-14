@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace C_Scherp_Api.Models
 {
-    public class CScherpContext : DbContext
+    public class CScherpContext : IdentityDbContext<User>
     {
         public CScherpContext(DbContextOptions<CScherpContext> options) : base(options) { }
 

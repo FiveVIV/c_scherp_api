@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("C Scherp Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e85e3450bf4873cc52244ce37c6f1575b8279962")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53b706f888b8fe88f7a698f72cd1f723d13486b3")]
 [assembly: System.Reflection.AssemblyProductAttribute("C Scherp Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("C Scherp Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
